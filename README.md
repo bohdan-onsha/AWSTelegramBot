@@ -50,7 +50,7 @@ Project structure
 1. Clone repository:
    `git clone https://github.com/bohdan-onsha/AWSTelegramBot`
 2. Move into root directory:
-   `ch AWSTelegramBot/`
+   `cв AWSTelegramBot/`
 3. Create virtual environment:
    `virtualenv -p python3 .venv`
 4. Activate virtual environment:
@@ -69,7 +69,7 @@ Project structure
 
    
 3. `python debug.py`
-   That's it. You're ready to make something fantastic!
+   That's it, you're ready to make something fantastic!
 
 ### Deploy
 1. Configure `syndicate_conf/syndicate.yml`
@@ -102,15 +102,14 @@ bot_token: $BOT_TOKEN
 `sh cd.sh deploy`
 
 Upon this, syndicate will create:
+- Lambda function: `telegram-bot-handler`
+- API gateway `telegram-bot-api`, with 1 endpoint to trigger lambda
 
-1. Lambda function: `telegram-bot-handler`
-2. API gateway `telegram-bot-api`, with 1 endpoint to trigger lambda
-
-3. Configure webhook for your bot:
+5. Configure webhook for your bot:
 ```python3
 bot.set_webhook(url='https://{IG_HOST}.execute-api.eu-central-1.amazonaws.com/prod/handler')
 ```
-4. Done, you can trigger the bot.
+6. Done, you can trigger the bot.
 
 ### Update lambda:
 Complete redeploy is not required, just:
