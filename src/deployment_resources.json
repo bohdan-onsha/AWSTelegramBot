@@ -1,0 +1,137 @@
+{
+  "lambda-basic-execution": {
+    "policy_content": {
+      "Statement": [
+        {
+          "Action": [
+            "logs:CreateLogGroup",
+            "logs:CreateLogStream",
+            "logs:PutLogEvents",
+            "dynamodb:*",
+            "ssm:GetParameter",
+            "xray:PutTraceSegments",
+            "xray:PutTelemetryRecords"
+          ],
+          "Effect": "Allow",
+          "Resource": "*"
+        }
+      ],
+      "Version": "2012-10-17"
+    },
+    "resource_type": "iam_policy"
+  },
+  "telegram-bot-api": {
+    "deploy_stage": "prod",
+    "dependencies": [
+    ],
+    "resource_type": "api_gateway",
+    "resources": {
+      "/handler": {
+        "enable_cors": true,
+        "POST": {
+          "integration_type": "lambda",
+          "authorization_type": "NONE",
+          "lambda_alias": "${lambdas_alias_name}",
+          "method_request_parameters": {},
+          "integration_request_body_template": {
+            "application/json": "{\"body\": $input.json('$')}"
+          },
+          "lambda_name": "telegram-bot-handler",
+          "responses": [
+            {
+              "status_code": "200"
+            },
+            {
+              "status_code": "400"
+            },
+            {
+              "status_code": "401"
+            },
+            {
+              "status_code": "403"
+            },
+            {
+              "status_code": "406"
+            },
+            {
+              "status_code": "404"
+            },
+            {
+              "status_code": "409"
+            },
+            {
+              "status_code": "500"
+            },
+            {
+              "status_code": "503"
+            }
+          ],
+          "integration_responses": [
+            {
+              "status_code": "200",
+              "response_templates": {
+                "application/json": "$input.json('$.body')"
+              }
+            },
+            {
+              "status_code": "400",
+              "error_regex": ".*400.*",
+              "response_templates": {
+                "application/json": "{\"message\": \"$input.path('$.errorMessage').replaceAll('\\d{3}:', '')\"}"
+              }
+            },
+            {
+              "status_code": "401",
+              "error_regex": ".*401.*",
+              "response_templates": {
+                "application/json": "{\"message\": \"$input.path('$.errorMessage').replaceAll('\\d{3}:', '')\"}"
+              }
+            },
+            {
+              "status_code": "403",
+              "error_regex": ".*403.*",
+              "response_templates": {
+                "application/json": "{\"message\": \"$input.path('$.errorMessage').replaceAll('\\d{3}:', '')\"}"
+              }
+            },
+            {
+              "status_code": "404",
+              "error_regex": ".*404.*",
+              "response_templates": {
+                "application/json": "{\"message\": \"$input.path('$.errorMessage').replaceAll('\\d{3}:', '')\"}"
+              }
+            },
+            {
+              "status_code": "406",
+              "error_regex": ".*406.*",
+              "response_templates": {
+                "application/json": "{\"message\": \"$input.path('$.errorMessage').replaceAll('\\d{3}:', '')\"}"
+              }
+            },
+            {
+              "status_code": "409",
+              "error_regex": ".*409.*",
+              "response_templates": {
+                "application/json": "{\"message\": \"$input.path('$.errorMessage').replaceAll('\\d{3}:', '')\"}"
+              }
+            },
+            {
+              "status_code": "500",
+              "error_regex": ".*500.*",
+              "response_templates": {
+                "application/json": "{\"message\": \"$input.path('$.errorMessage').replaceAll('\\d{3}:', '')\"}"
+              }
+            },
+            {
+              "status_code": "503",
+              "error_regex": ".*503.*",
+              "response_templates": {
+                "application/json": "{\"message\": \"$input.path('$.errorMessage').replaceAll('\\d{3}:', '')\"}"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

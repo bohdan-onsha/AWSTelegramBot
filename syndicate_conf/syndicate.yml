@@ -1,0 +1,10 @@
+account_id: AWS_ACCOUNT_ID
+aws_access_key_id: AWS_ACCESS_KEY_ID
+aws_secret_access_key: AWS_SECRET_ACCESS_KEY
+deploy_target_bucket: DEPLOY_TARGET_BUCKET
+project_path: {YOUR_PATH}/AWSTelegramBot/src
+region: eu-central-1
+resources_prefix: tg-
+build_projects_mapping:
+  python:
+    - /
