@@ -88,7 +88,6 @@ build_projects_mapping:
 ```
 
 2. Configure `syndicate_conf/syndicate_aliases.yml`
-
 ```yaml
 account_id: $AWS_ACCOUNT_ID
 lambdas_alias_name: dev
@@ -96,21 +95,20 @@ region: eu-central-1
 bot_token: $BOT_TOKEN
 ```
 
-3. export `SDCT_CONF` variable:  
+3. Set `SDCT_CONF` environment variable:  
 `export SDCT_CONF=YOUR_PATH/AWSTelegramBot/syndicate_conf`
 
 4. Deploy your bot:   
 `sh cd.sh deploy`
 
-Upon this, `syndicate` will create:
+Upon this, syndicate will create:
 
 1. Lambda function: `telegram-bot-handler`
-2. API gateway `telegram-bot-api`, with 1 endpoint that will trigger lambda
+2. API gateway `telegram-bot-api`, with 1 endpoint to trigger lambda
 
 3. Configure webhook for your bot:
 ```python3
-bot.set_webhook(
-    url='https://{IG_HOST}.execute-api.eu-central-1.amazonaws.com/prod/handler')
+bot.set_webhook(url='https://{IG_HOST}.execute-api.eu-central-1.amazonaws.com/prod/handler')
 ```
 4. Done, you can trigger the bot.
 
